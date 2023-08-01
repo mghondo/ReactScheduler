@@ -7,7 +7,8 @@ import { Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda} from '@s
 function App() {
   return (
     <div className="App">
-      <ScheduleComponent>
+      <br /><br /><br/>
+      <ScheduleComponent currentView='Month'>
         <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
 
       </ScheduleComponent>

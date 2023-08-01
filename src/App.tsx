@@ -8,8 +8,11 @@ import { DataManager, JsonAdaptor, Query, WebApiAdaptor } from '@syncfusion/ej2-
 function App() {
   const localData: EventSettingsModel = {
     dataSource: [{
-      EndTime: new Date(2023, 0,11,6,30),
-      StartTime: new Date(2023, 0, 11,4,0)
+      EndTime: new Date(2023, 0, 11, 6, 30),
+      StartTime: new Date(2023, 0, 11, 4, 0),
+      Subject: 'Testing',
+      IsAllDay: true,
+      RecurrenceRule: 'FREO=DAILY;INTERVAL=1;COUNT=10'
     }]
   }
   const remoteData = new DataManager({

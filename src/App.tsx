@@ -1,21 +1,37 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, EventSettingsModel} from '@syncfusion/ej2-react-schedule';
-import { DataManager, JsonAdaptor, Query, WebApiAdaptor } from '@syncfusion/ej2-data';
+import { Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, EventSettingsModel, ViewsDirective, ViewDirective} from '@syncfusion/ej2-react-schedule';
+import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 
 function App() {
-  const localData: EventSettingsModel = {
+  var localData: EventSettingsModel = {
     dataSource: [{
-      EndTime: new Date(2023, 0, 11, 6, 30),
-      StartTime: new Date(2023, 0, 11, 4, 0),
-      Subject: 'Testing',
+      Id:1,
+      EndTime: new Date(2019, 0, 21, 6, 30),
+      StartTime: new Date(2019, 0, 21, 4, 0),
+      Summary: 'Testing',
       IsAllDay: true,
-      RecurrenceRule: 'FREO=DAILY;INTERVAL=1;COUNT=10'
-    }]
+      // RecurrenceRule: 'FREO=DAILY;INTERVAL=1;COUNT=10'
+    },
+    {
+      Id:2,
+      EndTime: new Date(2019, 0, 11, 6, 30),
+      StartTime: new Date(2019, 0, 11, 4, 0),
+      Subject: 'Testing',
+      // RecurrenceRule: 'FREO=DAILY;INTERVAL=1;COUNT=10'
+    }
+  
+  ],
+    fields: {
+      subject: {name: 'Summary', default: 'No subject provided.'},
+      startTime: { name: 'Start'},
+      endTime: {name: 'End'}
+    }
   }
-  const remoteData = new DataManager({
+
+  var remoteData = new DataManager({
     url: 'https://js.syncfusion.com/demos/ejservices/api/Schedule/LoadData', 
     adaptor: new WebApiAdaptor,
     crossDomain: true
@@ -23,9 +39,18 @@ function App() {
   return (
     <div className="App">
       <br /><br /><br/>
-      <ScheduleComponent currentView='Month' selectedDate={new Date(2017, 5, 5)} eventSettings={{dataSource: remoteData}}>
+      <ScheduleComponent height='550px' 
+      currentView='Week' 
+      selectedDate={new Date(2017, 5, 5)} 
+      eventSettings={{dataSource: remoteData}}>
+        <ViewsDirective>
+          <ViewDirective option="Day"></ViewDirective>
+          <ViewDirective option="Week"></ViewDirective>
+          <ViewDirective option="WorkWeek"></ViewDirective>
+          <ViewDirective option="Month"></ViewDirective>      
+          <ViewDirective option="Agenda"></ViewDirective>
+        </ViewsDirective>
         <Inject services={[Day, Week, WorkWeek, Month, Agenda]}/>
-         
       </ScheduleComponent>
       
     </div>
